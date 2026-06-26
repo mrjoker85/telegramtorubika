@@ -1,0 +1,6 @@
+pyrogram
+tgcrypto
+rubpy
+python-dotenv
+aiohttp
+aiohttp_socks
