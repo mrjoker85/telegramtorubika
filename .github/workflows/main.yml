@@ -4,8 +4,8 @@ on:
   push:
     branches: [ main ]
   schedule:
-    - cron: '0 */5 * * *' # هر ۵ ساعت یکبار برای تمدید خودکار و زنده ماندن سرور اجرا می‌شود
-  workflow_dispatch: # امکان استارت زدن دستی از تب Actions
+    - cron: '0 */5 * * *'
+  workflow_dispatch:
 
 jobs:
   run-bot:
@@ -19,17 +19,9 @@ jobs:
       with:
         python-version: '3.10'
 
-    - name: Install System Dependencies & Xray
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y wget unzip
-        wget -qO /tmp/Xray-linux-64.zip https://github.com/XTLS/Xray-core/releases/latest/download/Xray-linux-64.zip
-        sudo unzip -o /tmp/Xray-linux-64.zip -d /usr/local/bin/ > /dev/null
-        sudo chmod +x /usr/local/bin/xray
-
     - name: Install Python Packages
       run: |
-        pip install pyrogram tgcrypto rubpy python-dotenv aiohttp aiohttp_socks
+        pip install pyrogram tgcrypto rubpy python-dotenv aiohttp
 
     - name: Run Python Bot
       env:
