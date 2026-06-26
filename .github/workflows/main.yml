@@ -4,8 +4,8 @@ on:
   push:
     branches: [ main ]
   schedule:
-    - cron: '0 */5 * * *' # هر ۵ ساعت یکبار برای اطمینان از زنده بودن سرور تریگر می‌شود
-  workflow_dispatch: # دکمه اجرای دستی در گیت‌هاب
+    - cron: '0 */5 * * *' # هر ۵ ساعت یکبار برای تمدید خودکار و زنده ماندن سرور اجرا می‌شود
+  workflow_dispatch: # امکان استارت زدن دستی از تب Actions
 
 jobs:
   run-bot:
@@ -36,5 +36,5 @@ jobs:
         API_ID: ${{ secrets.API_ID }}
         API_HASH: ${{ secrets.API_HASH }}
         BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-        PHONE_NUMBER: "09054009380"
+        RUBIKA_AUTH: ${{ secrets.RUBIKA_AUTH }}
       run: python bot.py
