@@ -1,0 +1,40 @@
+name: Telegram To Rubika Bot Runner
+
+on:
+  push:
+    branches: [ main ]
+  schedule:
+    - cron: '0 */5 * * *' # هر ۵ ساعت یکبار برای اطمینان از زنده بودن سرور تریگر می‌شود
+  workflow_dispatch: # دکمه اجرای دستی در گیت‌هاب
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install System Dependencies & Xray
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y wget unzip
+        wget -qO /tmp/Xray-linux-64.zip https://github.com/XTLS/Xray-core/releases/latest/download/Xray-linux-64.zip
+        sudo unzip -o /tmp/Xray-linux-64.zip -d /usr/local/bin/ > /dev/null
+        sudo chmod +x /usr/local/bin/xray
+
+    - name: Install Python Packages
+      run: |
+        pip install pyrogram tgcrypto rubpy python-dotenv aiohttp aiohttp_socks
+
+    - name: Run Python Bot
+      env:
+        API_ID: ${{ secrets.API_ID }}
+        API_HASH: ${{ secrets.API_HASH }}
+        BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+        PHONE_NUMBER: "09054009380"
+      run: python bot.py
