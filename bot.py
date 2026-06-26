@@ -74,9 +74,9 @@ async def main():
     tg_app = Client(session_name, api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN)
     await tg_app.start()
     
-    # لاگین مستقیم و بدون دردسر به روبیکا با توکن سشن
+    # اصلاح خطای متد سازنده روبیکا: دادن نام سشن اجباری به عنوان پارامتر اول
     print("⚡ اتصال به روبیکا از طریق Auth Token...")
-    rub_app = RubikaClient(auth=RUBIKA_AUTH)
+    rub_app = RubikaClient(name="rubika_session_cloud", auth=RUBIKA_AUTH)
     
     # گرفتن اطلاعات برای اطمینان از صحت توکن
     me = await rub_app.get_me()
